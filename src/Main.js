@@ -5,7 +5,7 @@ import {Register} from './Register'
 export class Main extends Component {
     render() {
         return (
-            <div>
+            <div className='main'>
                 <Register/>
             </div>
         );

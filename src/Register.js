@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Tooltip, Button, Icon } from 'antd';
+import register from './registerServiceWorker'
 
 const FormItem = Form.Item;
 
@@ -8,7 +9,7 @@ class RegistrationForm extends React.Component {
         confirmDirty: false,
         autoCompleteResult: [],
     };
-
+    // handleSubmit a function bind to the RegistrationForm
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -67,7 +68,7 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} className='register'>
                 <FormItem
                     {...formItemLayout}
                     label={(
@@ -114,6 +115,7 @@ class RegistrationForm extends React.Component {
                     )}
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
+                    {/*  htmlType="submit" means a btn can submit all above forms*/}
                     <Button type="primary" htmlType="submit">Register</Button>
                 </FormItem>
             </Form>

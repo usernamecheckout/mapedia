@@ -1,6 +1,7 @@
 import React from 'react'
-import { Form, Input, Tooltip, Button, Icon } from 'antd';
-import register from './registerServiceWorker'
+import { Form, Input, Tooltip, Button, Icon, message } from 'antd';
+import $ from 'jquery';
+import {API_ROOT} from './constants'
 
 const FormItem = Form.Item;
 
@@ -15,6 +16,20 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                $.ajax({
+                    url: `${API_ROOT}signup`,
+                    method: 'POST',
+                    data: JSON.stringify({
+                        username: values.username,
+                        password: values.password,
+                    }),
+                }).then((response) => {
+                    message.success(response);
+                }, (response) => {
+                    message.error(response.responseText);
+                }).catch((e) => {
+                    console.log(e);
+                })
             }
         });
     }
@@ -73,14 +88,14 @@ class RegistrationForm extends React.Component {
                     {...formItemLayout}
                     label={(
                         <span>
-              Nickname&nbsp;
+              Username&nbsp;
                             <Tooltip title="What do you want others to call you?">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>
                     )}
                 >
-                    {getFieldDecorator('Username', {
+                    {getFieldDecorator('username', { // username has to be lowercae
                         rules: [{ required: true, message: 'Please input your Username!', whitespace: false }], // whitespace, if whitespace is ok in your input
                     })(
                         <Input />

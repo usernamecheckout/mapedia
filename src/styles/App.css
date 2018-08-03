@@ -1,6 +1,8 @@
-@import '../../node_modules/antd/dist/antd.css';
+@import '~antd/dist/antd.css';
 @import 'Main.css';
 @import 'Register.css';
+@import 'Login.css';
+@import 'Header.css';
 
 .App {
   text-align: center;
@@ -19,11 +21,10 @@
 }
 
 .App-title {
-    padding-top: 16px;
   font-size: 1.5em;
+  color: #61dafb;
+  padding-top: 16px;
   float: left;
-    color: #61dafb;
-
 }
 
 .App-intro {

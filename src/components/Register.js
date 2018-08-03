@@ -17,7 +17,7 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 $.ajax({
-                    url: `${API_ROOT}signup`,
+                    url: `${API_ROOT}/signup`,
                     method: 'POST',
                     data: JSON.stringify({
                         username: values.username,
@@ -25,6 +25,7 @@ class RegistrationForm extends React.Component {
                     }),
                 }).then((response) => {
                     message.success(response);
+                    this.props.history.push('/login');
                 }, (response) => {
                     message.error(response.responseText);
                 }).catch((e) => {
@@ -142,3 +143,4 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);  // high order 
 // take RegistrationForm, generate enhanced RegistrationForm called WrappedRegistrationForm, so you have some function as auto validation.
 
 export const Register = WrappedRegistrationForm;
+

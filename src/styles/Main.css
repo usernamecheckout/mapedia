@@ -1,6 +1,12 @@
-.main{
-    /*margin is the outer (out of the div box), padding is inner (around the content)*/
-    /*display: flex move with moving the window*/
-    margin-top: 40px;
+/*.main{*/
+    /*!*margin is the outer (out of the div box), padding is inner (around the content)*!*/
+    /*!*display: flex move with moving the window*!*/
+    /*margin-top: 40px;*/
+    /*display: flex;*/
+/*}*/
+
+.main {
+    margin-top: 70px;
     display: flex;
+    justify-content: center;
 }

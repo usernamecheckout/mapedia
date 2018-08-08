@@ -25,7 +25,7 @@ class RegistrationForm extends React.Component {
                     }),
                 }).then((response) => {
                     message.success(response);
-                    this.props.history.push('/login');
+                    this.props.history.push('/login'); // push into the hisotry stack so, it will be able to simulate jumping around like html hperlink withing hte reate app.
                 }, (response) => {
                     message.error(response.responseText);
                 }).catch((e) => {

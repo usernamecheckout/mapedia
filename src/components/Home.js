@@ -1,17 +1,13 @@
 import React from 'react';
-import $ from 'jquery'; // use ajax from jquery. ajax will return a promise
-import { Tabs, Button, Spin } from 'antd';
+import $ from 'jquery';
+import { Tabs, Spin } from 'antd';
 import { GEO_OPTIONS, POS_KEY, AUTH_PREFIX, TOKEN_KEY, API_ROOT } from '../constants';
-import {Gallery} from './Gallery';
+import { Gallery } from './Gallery';
+import { CreatePostButton } from './CreatePostButton';
 
 const TabPane = Tabs.TabPane;
 
-const operations = <Button>Extra Action</Button>;
-
 export class Home extends React.Component {
-
-    // componentwillamount will be deprecated in the furtur, use didmount instead
-    // naviagtor.geolocation
     state = {
         loadingGeoLocation: false,
         loadingPosts: false,
@@ -20,12 +16,12 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({error: ''});
+        this.setState({ loadingGeoLocation: true, error: '' });
         this.getGeoLocation();
     }
 
     getGeoLocation = () => {
-        if ('geolocation' in navigator) {
+        if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 this.onSuccessLoadGeoLocation,
                 this.onFailedLoadGeolocation,
@@ -40,7 +36,7 @@ export class Home extends React.Component {
         console.log(position);
         this.setState({ loadingGeoLocation: false, error: '' });
         const { latitude, longitude } = position.coords;
-        localStorage.setItem(POS_KEY, JSON.stringify({lat: latitude, lon: longitude})); // local storage can only store string.
+        localStorage.setItem(POS_KEY, JSON.stringify({lat: latitude, lon: longitude}));
         this.loadNearbyPosts();
     }
 
@@ -61,8 +57,8 @@ export class Home extends React.Component {
                     user: post.user,
                     src: post.url,
                     thumbnail: post.url,
-                    thumbnailWidth: 500,
-                    thumbnailHeight: 500,
+                    thumbnailWidth: 400,
+                    thumbnailHeight: 300,
                     caption: post.message,
                 }
             });
@@ -73,14 +69,13 @@ export class Home extends React.Component {
         }
     }
 
-
     loadNearbyPosts = () => {
         const { lat, lon } = JSON.parse(localStorage.getItem(POS_KEY));
         this.setState({ loadingPosts: true, error: ''});
-        $.ajax({
-            url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20000`,
+        return $.ajax({
+            url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=200000`,
             method: 'GET',
-            headers: {// use bearer auth
+            headers: {
                 Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`
             },
         }).then((response) => {
@@ -94,17 +89,20 @@ export class Home extends React.Component {
         });
     }
 
-    // <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane> key is used by virtual dom for diff.
     render() {
-        console.log(this.state)
+        const createPostButton = <CreatePostButton loadNearbyPosts={this.loadNearbyPosts}/>;
+
         return (
-            <Tabs tabBarExtraContent={operations} className="main-tabs">
-                <TabPane tab="Posts" key="1">{this.getGalleryPanelContent()}</TabPane>
-                <TabPane tab="Map" key="2">{this.state.error}</TabPane>
+            <Tabs tabBarExtraContent={createPostButton} className="main-tabs">
+                <TabPane tab="Posts" key="1">
+                    {this.getGalleryPanelContent()}
+                </TabPane>
+                <TabPane tab="Map" key="2">Content of tab 2</TabPane>
             </Tabs>
         );
     }
 }
+
 
 
 

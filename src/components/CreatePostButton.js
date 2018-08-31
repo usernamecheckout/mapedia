@@ -16,6 +16,7 @@ export class CreatePostButton extends React.Component {
     }
     handleOk = () => {
         this.setState({ confirmLoading: true });
+        // validateFields is a promis, take in hte validate values. as in put.
         this.form.validateFields((err, values) => {
             if (!err) {
                 const { lat, lon } = JSON.parse(localStorage.getItem(POS_KEY));
@@ -39,7 +40,7 @@ export class CreatePostButton extends React.Component {
                     message.success('Created a post successfully!');
                     this.form.resetFields();
                     this.setState({ visible: false, confirmLoading: false });
-                    this.props.loadNearByPosts();
+                    this.props.loadNearbyPosts();
                 }, (response) => {
                     message.error(response.responseText);
                     this.setState({ visible: false, confirmLoading: false });
@@ -70,6 +71,9 @@ export class CreatePostButton extends React.Component {
                        confirmLoading={confirmLoading}
                        onCancel={this.handleCancel}
                 >
+                    {/*Callback Refs
+                    React also supports another way to set refs called “callback refs”, which gives more fine-grain control over when refs are set and unset.
+                    Instead of passing a ref attribute created by createRef(), you pass a function. The function receives the React component instance or HTML DOM element as its argument, which can be stored and accessed elsewhere.*/}
                     <WrappedCreatePostForm ref={this.saveFormRef}/>
                 </Modal>
             </div>

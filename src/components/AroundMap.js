@@ -27,6 +27,7 @@ class AroundMap extends React.Component {
         this.map = map;
         window.map = map;
     }
+    // {/*first {} is the way to tell JSX that you are going to write js code, inner {} is the JSON object*/}
     render() {
         const { lat, lon } = JSON.parse(localStorage.getItem(POS_KEY));
         return (
@@ -34,7 +35,7 @@ class AroundMap extends React.Component {
                 ref={this.getMapRef}
                 onDragEnd={this.reloadMarkers}
                 onZoomChanged={this.reloadMarkers}
-                defaultZoom={11}
+                defaultZoom={16}
                 defaultCenter={{ lat: lat, lng: lon }}
                 defaultOptions={{ scaleControl: true }}
             >

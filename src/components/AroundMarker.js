@@ -18,7 +18,7 @@ export class AroundMarker extends React.Component {
     render() {
         const { location, url, user, message } = this.props.post;
         return (
-            <Marker
+        <Marker
                 position={{lat: location.lat, lng: location.lon}}
                 onMouseOver={this.onToggleOpen}
                 onMouseOut={this.onToggleOpen}

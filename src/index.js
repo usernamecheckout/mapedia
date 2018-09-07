@@ -5,10 +5,9 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 
-// history, is context is global, start from here.
 ReactDOM.render(
     <BrowserRouter>
-        <App/>
+        <App />
     </BrowserRouter>,
     document.getElementById('root'));
 registerServiceWorker();

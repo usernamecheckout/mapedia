@@ -1,15 +1,8 @@
-import React  from 'react';
-import logo from '../assets/images/logo.svg';
+import React from 'react';
 import { Icon } from 'antd';
-import PropTypes from 'prop-types';
-// proptypes is an object. it can help you check the type of the
+import logo from '../assets/images/logo.svg';
 
 export class Header extends React.Component {
-    static propTypes = {
-        isLoggedIn: PropTypes.bool.isRequired,
-        handleLogout: PropTypes.func.isRequired,
-    }
-
     render() {
         return (
             <header className="App-header">
@@ -17,9 +10,7 @@ export class Header extends React.Component {
                 <h1 className="App-title">Around</h1>
                 {
                     this.props.isLoggedIn ?
-                        <a className="logout"
-                           onClick={this.props.handleLogout}
-                        >
+                        <a onClick={this.props.handleLogout} className="logout">
                             <Icon type="logout" />{' '}Logout
                         </a> : null
                 }
@@ -27,3 +18,4 @@ export class Header extends React.Component {
         );
     }
 }
+

@@ -1,7 +1,8 @@
-import React from 'react'
-import { Form, Input, Tooltip, Button, Icon, message } from 'antd';
+import React from 'react';
+import { Form, Input, Button, message } from 'antd';
 import $ from 'jquery';
-import {API_ROOT} from '../constants'
+import { Link } from 'react-router-dom';
+import { API_ROOT } from '../constants';
 
 const FormItem = Form.Item;
 
@@ -10,7 +11,7 @@ class RegistrationForm extends React.Component {
         confirmDirty: false,
         autoCompleteResult: [],
     };
-    // handleSubmit a function bind to the RegistrationForm
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -22,15 +23,15 @@ class RegistrationForm extends React.Component {
                     data: JSON.stringify({
                         username: values.username,
                         password: values.password,
-                    }),
+                    })
                 }).then((response) => {
                     message.success(response);
-                    this.props.history.push('/login'); // push into the hisotry stack so, it will be able to simulate jumping around like html hperlink withing hte reate app.
+                    this.props.history.push('/login');
                 }, (response) => {
                     message.error(response.responseText);
                 }).catch((e) => {
                     console.log(e);
-                })
+                });
             }
         });
     }
@@ -84,20 +85,13 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form onSubmit={this.handleSubmit} className='register'>
+            <Form onSubmit={this.handleSubmit} className="register-form">
                 <FormItem
                     {...formItemLayout}
-                    label={(
-                        <span>
-              Username&nbsp;
-                            <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-                    )}
+                    label="Username"
                 >
-                    {getFieldDecorator('username', { // username has to be lowercae
-                        rules: [{ required: true, message: 'Please input your Username!', whitespace: false }], // whitespace, if whitespace is ok in your input
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
                     })(
                         <Input />
                     )}
@@ -131,16 +125,12 @@ class RegistrationForm extends React.Component {
                     )}
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
-                    {/*  htmlType="submit" means a btn can submit all above forms*/}
                     <Button type="primary" htmlType="submit">Register</Button>
+                    <p>I already have an account, go back to <Link to="/login">login</Link></p>
                 </FormItem>
             </Form>
         );
     }
 }
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm);  // high order component is not a component is a function takes a component and return a new component.
-// take RegistrationForm, generate enhanced RegistrationForm called WrappedRegistrationForm, so you have some function as auto validation.
-
-export const Register = WrappedRegistrationForm;
-
+export const Register = Form.create()(RegistrationForm);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Upload, Icon } from 'antd';
+import { Form, Input, Icon, Upload } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -12,15 +12,12 @@ class CreatePostForm extends React.Component {
         return e && e.fileList;
     }
 
-    // don't upload automatically when you drag the image into the post.
     beforeUpload = () => {
         return false;
     }
 
     render() {
-        // getFieldDecorator used for auto check. no need for onChange.
         const { getFieldDecorator } = this.props.form;
-        // total 20, label count 6, wrapperCol count 14
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
@@ -29,7 +26,8 @@ class CreatePostForm extends React.Component {
             <Form layout="vertical">
                 <FormItem
                     {...formItemLayout}
-                    label="Message">
+                    label="Message"
+                >
                     {getFieldDecorator('message', {
                         rules: [{ required: true, message: 'Please input a message.' }],
                     })(
@@ -38,7 +36,7 @@ class CreatePostForm extends React.Component {
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
-                    label="Image"
+                    label="Image/video"
                 >
                     <div className="dropbox">
                         {getFieldDecorator('image', {
@@ -46,12 +44,12 @@ class CreatePostForm extends React.Component {
                             getValueFromEvent: this.normFile,
                             rules: [{ required: true, message: 'Please select an image.' }],
                         })(
-                            <Upload.Dragger name="file" beforeUpload={this.beforeUpload}>
+                            <Upload.Dragger name="files" action="/upload.do" beforeUpload={this.beforeUpload}>
                                 <p className="ant-upload-drag-icon">
                                     <Icon type="inbox" />
                                 </p>
                                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">Support for a single upload.</p>
+                                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
                             </Upload.Dragger>
                         )}
                     </div>
@@ -61,5 +59,4 @@ class CreatePostForm extends React.Component {
     }
 }
 
-// wrap to enable the validation
 export const WrappedCreatePostForm = Form.create()(CreatePostForm);

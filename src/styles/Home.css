@@ -1,14 +1,14 @@
 .main-tabs {
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .video-block {
-    height: 400px;
-    width: 220px;
+    height: 500px;
+    width: 300px;
 }
 
 .topic-radio-group {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 

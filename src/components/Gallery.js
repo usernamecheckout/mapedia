@@ -50,7 +50,7 @@ const wrapperStyle = {
 
 const captionStyle = {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
-    maxHeight: "240px",
+    maxHeight: "200px",
     overflow: "hidden",
     position: "absolute",
     bottom: "0",

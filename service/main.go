@@ -32,7 +32,7 @@ const (
 	// Needs to update
 	//PROJECT_ID = "mapedia-xxx"
 	//BT_INSTANCE = "mapedia-post"
-	// GCE elasticsearch URL
+	// GCE elasticsearch URL will change each time you close and reopen GCE. remember to change it here.
 	ES_URL = "http://35.232.159.43:9200"
 )
 
